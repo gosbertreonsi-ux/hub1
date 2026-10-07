@@ -1,71 +1,115 @@
-export type Language = 'sw' | 'en';
+export type Gender = 'male' | 'female' | 'non-binary' | 'all';
 
-export interface ChatPerson {
+export type OnlineStatus = 'online' | 'offline' | 'away' | 'busy' | 'in_call';
+
+export type RelationshipGoal =
+  | 'Make friends'
+  | 'Meet new people'
+  | 'Find a relationship'
+  | 'Practice languages'
+  | 'Find people with similar interests'
+  | 'Casual conversation';
+
+export interface UserProfile {
   id: string;
-  name: string;
-  phone: string;
-  avatar: string;
-  role?: 'admin' | 'creator' | 'member';
-  online?: boolean;
+  nickname: string;
+  age: number;
+  gender: 'male' | 'female' | 'non-binary';
+  country: string;
+  approxLocation: string;
+  avatarUrl: string;
+  photos: string[];
+  bio: string;
+  interests: string[];
+  languages: string[];
+  goals: RelationshipGoal[];
+  personality: 'Introvert' | 'Ambivert' | 'Extrovert';
+  onlineStatus: OnlineStatus;
+  verified: boolean;
+  voiceIntroSeconds?: number;
+  occupation?: string;
+  compatibilityScore?: number;
+}
+
+export interface CurrentUser extends UserProfile {
+  email: string;
+  phone?: string;
+  dateOfBirth: string;
+  preferences: {
+    minAge: number;
+    maxAge: number;
+    interestedIn: Gender;
+    countries: string[];
+    languages: string[];
+  };
+  privacy: {
+    showOnlineStatus: boolean;
+    showLocation: boolean;
+    allowCallsFrom: 'matches_only' | 'everyone' | 'nobody';
+    discoverable: boolean;
+  };
+  likedUserIds: string[];
+  skippedUserIds: string[];
+  blockedUserIds: string[];
+}
+
+export interface Match {
+  id: string;
+  userId: string;
+  matchedAt: string;
+  compatibilityScore: number;
+  lastInteraction?: string;
+}
+
+export interface MessageReaction {
+  emoji: string;
+  count: number;
+  byMe: boolean;
 }
 
 export interface ChatMessage {
   id: string;
-  sender: ChatPerson;
-  type: 'text' | 'video' | 'audio' | 'image' | 'sticker';
-  text?: string;
-  thumb?: string;
-  videoUrl?: string;
-  size?: string;
-  duration?: string;
-  time: string;
-  isForwarded?: boolean;
-  reactions?: { emoji: string; count: number }[];
-  isLocked?: boolean;
-  movieRefId?: string;
+  conversationId: string;
+  senderId: string;
+  text: string;
+  type: 'text' | 'voice' | 'image' | 'call_log';
+  mediaUrl?: string;
+  audioDuration?: string;
+  timestamp: string;
+  read: boolean;
+  reactions: MessageReaction[];
+  translatedText?: string;
+  targetLang?: string;
+  isTranslated?: boolean;
 }
 
-export interface Movie {
+export interface Conversation {
   id: string;
-  title: string;
-  originalTitle?: string;
-  category: 'bongo' | 'dj-afro' | 'series' | 'vip-connection' | 'nollywood' | 'bollywood';
-  dj?: 'DJ Afro' | 'DJ Mack' | 'DJ Murphy' | 'DJ Six' | 'DJ Black' | 'Asili (Original)';
-  year: number;
-  rating: number;
-  duration: string;
-  quality: '4K' | '1080p FHD' | '720p HD';
-  poster: string;
-  banner: string;
-  descriptionSw: string;
-  descriptionEn: string;
-  cast: string[];
-  views: number;
-  likes: number;
-  videoUrl: string;
-  trailerUrl?: string;
-  isVipOnly?: boolean;
-  episodesCount?: number;
-  downloadSize: string;
-  trendingRank?: number;
+  participantId: string;
+  lastMessage?: ChatMessage;
+  unreadCount: number;
+  updatedAt: string;
 }
 
-export type PaymentCarrier = 'mpesa' | 'tigopesa' | 'airtel' | 'halopesa';
-
-export interface PaymentStatus {
-  status: 'idle' | 'submitting' | 'waiting_ussd' | 'pin_prompt' | 'success' | 'failed';
-  orderId?: string;
-  carrier?: PaymentCarrier;
-  phone?: string;
-  amount: number;
-  message?: string;
-  timestamp?: number;
+export interface CallSession {
+  id: string;
+  participant: UserProfile;
+  type: 'voice' | 'video';
+  status: 'calling' | 'ringing' | 'connected' | 'ended';
+  startedAt?: number;
+  durationSeconds: number;
+  isMuted: boolean;
+  isVideoOff: boolean;
+  isSpeakerOn: boolean;
 }
 
-export interface VIPAccess {
-  isActive: boolean;
-  expiresAt: number | null;
-  phone?: string;
-  carrier?: PaymentCarrier;
-  token?: string;
+export interface ReportTicket {
+  id: string;
+  reportedUserId: string;
+  reportedUserNickname: string;
+  reporterId: string;
+  reason: string;
+  details: string;
+  status: 'pending' | 'reviewed' | 'resolved' | 'dismissed';
+  createdAt: string;
 }
