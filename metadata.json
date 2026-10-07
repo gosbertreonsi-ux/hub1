@@ -1,0 +1,7 @@
+{
+  "name": "Movies-TZ VIP - WhatsApp Group & Streaming Hub",
+  "description": "Tazama movie kali za Bongo, DJ Afro, Swahili Translated Series na jiunge na VIP WhatsApp Group moja kwa moja.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
