@@ -46,6 +46,7 @@ interface ChatSystemProps {
   onReportUser: (participant: UserProfile) => void;
   onBlockUser: (participant: UserProfile) => void;
   onViewProfile: (participant: UserProfile, score: number) => void;
+  onRequireSubscription?: (message?: string) => void;
 }
 
 export const ChatSystem: React.FC<ChatSystemProps> = ({
@@ -61,6 +62,7 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
   onReportUser,
   onBlockUser,
   onViewProfile,
+  onRequireSubscription,
 }) => {
   const [inputText, setInputText] = useState('');
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
@@ -87,6 +89,15 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
     if (e) e.preventDefault();
     if (!inputText.trim() || !activeParticipantId) return;
 
+    if (!currentUser.isSubscribed) {
+      if (onRequireSubscription) {
+        onRequireSubscription(
+          `Free Preview Mode: You can read messages! To reply & chat directly with ${activeProfile?.nickname || 'matches'}, activate your MIZIZI VIP Pass.`
+        );
+        return;
+      }
+    }
+
     playPopSound();
     onSendMessage(activeParticipantId, inputText.trim(), 'text');
     setInputText('');
@@ -94,6 +105,16 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
 
   const handleSendVoiceNote = () => {
     if (!activeParticipantId) return;
+
+    if (!currentUser.isSubscribed) {
+      if (onRequireSubscription) {
+        onRequireSubscription(
+          `Voice note messaging is exclusive to MIZIZI VIP subscribers. Subscribe to unlock.`
+        );
+        return;
+      }
+    }
+
     setIsRecordingVoice(true);
     playVoiceNoteBeep();
 
@@ -106,6 +127,32 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
       );
       playPopSound();
     }, 2000);
+  };
+
+  const handleVoiceCallClick = () => {
+    if (!activeProfile) return;
+    if (!currentUser.isSubscribed) {
+      if (onRequireSubscription) {
+        onRequireSubscription(
+          `1-to-1 Voice calling with ${activeProfile.nickname} is exclusive to MIZIZI VIP members.`
+        );
+        return;
+      }
+    }
+    onStartVoiceCall(activeProfile);
+  };
+
+  const handleVideoCallClick = () => {
+    if (!activeProfile) return;
+    if (!currentUser.isSubscribed) {
+      if (onRequireSubscription) {
+        onRequireSubscription(
+          `HD WebRTC Video Calling with ${activeProfile.nickname} is exclusive to MIZIZI VIP members.`
+        );
+        return;
+      }
+    }
+    onStartVideoCall(activeProfile);
   };
 
   const toggleTranslate = (msgId: string) => {
@@ -311,7 +358,7 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
               <div className="flex items-center gap-1.5 sm:gap-2">
                 {/* Voice Call Button */}
                 <button
-                  onClick={() => onStartVoiceCall(activeProfile)}
+                  onClick={handleVoiceCallClick}
                   className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-900 border border-red-950 hover:border-red-600 hover:bg-red-950/60 text-zinc-200 hover:text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow"
                   title="Start Voice Call"
                 >
@@ -321,7 +368,7 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
 
                 {/* Video Call Button */}
                 <button
-                  onClick={() => onStartVideoCall(activeProfile)}
+                  onClick={handleVideoCallClick}
                   className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-lg shadow-red-950/80"
                   title="Start Video Call (WebRTC)"
                 >
@@ -339,6 +386,22 @@ export const ChatSystem: React.FC<ChatSystemProps> = ({
                 </button>
               </div>
             </header>
+
+            {/* Free Preview Strip when not subscribed */}
+            {!currentUser.isSubscribed && (
+              <div className="bg-gradient-to-r from-red-950/90 via-black to-zinc-950 px-4 py-1.5 border-b border-red-800/60 flex items-center justify-between text-xs text-red-200">
+                <span className="flex items-center gap-1.5">
+                  <span>👁️</span>
+                  <span className="text-[11px]">Free Preview: Viewing messages is free. Subscribe to reply & make HD calls.</span>
+                </span>
+                <button
+                  onClick={() => onRequireSubscription && onRequireSubscription('Unlock unlimited messaging & video calls with VIP Pass!')}
+                  className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white text-[10px] font-black cursor-pointer shadow-sm flex-shrink-0"
+                >
+                  Subscribe VIP
+                </button>
+              </div>
+            )}
 
             {/* Translation Settings Strip (PRD §15 & §53) */}
             <div className="bg-[#14141c] px-4 py-1.5 border-b border-red-950/40 flex items-center justify-between text-[11px] text-zinc-400">

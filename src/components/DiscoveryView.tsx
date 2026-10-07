@@ -28,6 +28,7 @@ interface DiscoveryViewProps {
   onSuperConnect: (profile: UserProfile, score: number) => void;
   onViewProfile: (profile: UserProfile, score: number) => void;
   onResetDeck: () => void;
+  onRequireSubscription?: (message?: string) => void;
 }
 
 export const DiscoveryView: React.FC<DiscoveryViewProps> = ({
@@ -38,6 +39,7 @@ export const DiscoveryView: React.FC<DiscoveryViewProps> = ({
   onSuperConnect,
   onViewProfile,
   onResetDeck,
+  onRequireSubscription,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -87,6 +89,14 @@ export const DiscoveryView: React.FC<DiscoveryViewProps> = ({
 
   const handleLikeClick = () => {
     if (!currentProfile) return;
+    if (!currentUser.isSubscribed) {
+      if (onRequireSubscription) {
+        onRequireSubscription(
+          `Free Preview Mode: You found a ${compatibilityScore}% match with ${currentProfile.nickname}! To send likes and match, subscribe to the MIZIZI VIP Pass.`
+        );
+        return;
+      }
+    }
     playPopSound();
     onLike(currentProfile, compatibilityScore);
     advanceCard();
@@ -101,6 +111,14 @@ export const DiscoveryView: React.FC<DiscoveryViewProps> = ({
 
   const handleSuperConnectClick = () => {
     if (!currentProfile) return;
+    if (!currentUser.isSubscribed) {
+      if (onRequireSubscription) {
+        onRequireSubscription(
+          `Super Connect with ${currentProfile.nickname} is exclusive to MIZIZI Billionaire Club members. Subscribe to unlock.`
+        );
+        return;
+      }
+    }
     playPopSound();
     onSuperConnect(currentProfile, compatibilityScore);
     advanceCard();
@@ -114,6 +132,25 @@ export const DiscoveryView: React.FC<DiscoveryViewProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 flex flex-col items-center">
+      {/* Free Preview Notification Banner */}
+      {!currentUser.isSubscribed && (
+        <div className="w-full max-w-md mb-3 px-3 py-2 rounded-2xl bg-gradient-to-r from-red-950/80 via-black to-zinc-950 border border-red-600/60 flex items-center justify-between gap-2 shadow-lg">
+          <div className="flex items-center gap-2 text-left">
+            <span className="text-sm">👁️</span>
+            <div>
+              <p className="text-[11px] font-bold text-white leading-tight">Free Discovery Preview</p>
+              <p className="text-[10px] text-zinc-400">Browsing is free · Subscribe to like & match</p>
+            </div>
+          </div>
+          <button
+            onClick={() => onRequireSubscription && onRequireSubscription('Unlock unlimited likes, instant matches and direct video calls with VIP Pass!')}
+            className="px-2.5 py-1 bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white text-[10px] font-black rounded-lg cursor-pointer flex-shrink-0 shadow-md shadow-red-950"
+          >
+            Subscribe VIP
+          </button>
+        </div>
+      )}
+
       {/* Top Filter and Deck Bar */}
       <div className="w-full max-w-md flex items-center justify-between mb-4">
         <div>

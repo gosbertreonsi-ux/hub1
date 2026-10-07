@@ -51,6 +51,10 @@ export interface CurrentUser extends UserProfile {
   likedUserIds: string[];
   skippedUserIds: string[];
   blockedUserIds: string[];
+  isSubscribed?: boolean;
+  subscriptionPlan?: 'free' | 'daily' | 'monthly' | 'founder';
+  subscriptionExpiresAt?: number | null;
+  isGuest?: boolean;
 }
 
 export interface Match {
@@ -113,3 +117,112 @@ export interface ReportTicket {
   status: 'pending' | 'reviewed' | 'resolved' | 'dismissed';
   createdAt: string;
 }
+
+/* =========================================================================
+   MIZIZI V2.0 MASTER UNIFIED SOCIAL & COMMUNITY TYPES (PRD V2.0)
+   ========================================================================= */
+
+export interface PostComment {
+  id: string;
+  author: UserProfile;
+  content: string;
+  createdAt: string;
+  likesCount: number;
+}
+
+export interface Post {
+  id: string;
+  author: UserProfile;
+  content: string;
+  mediaUrls: string[];
+  mediaType?: 'image' | 'video';
+  likesCount: number;
+  isLiked: boolean;
+  commentsCount: number;
+  comments?: PostComment[];
+  sharesCount: number;
+  createdAt: string;
+  tags?: string[];
+  location?: string;
+  communityName?: string;
+}
+
+export interface Story {
+  id: string;
+  author: UserProfile;
+  mediaUrl: string;
+  type: 'image' | 'video' | 'text';
+  caption?: string;
+  createdAt: string;
+  viewed?: boolean;
+}
+
+export interface Reel {
+  id: string;
+  creator: UserProfile;
+  videoUrl: string;
+  thumbnailUrl: string;
+  caption: string;
+  musicTitle: string;
+  likesCount: number;
+  isLiked: boolean;
+  commentsCount: number;
+  sharesCount: number;
+  viewsCount: number;
+  tags: string[];
+}
+
+export interface CommunityGroup {
+  id: string;
+  name: string;
+  category: string;
+  avatarUrl: string;
+  bannerUrl: string;
+  description: string;
+  membersCount: number;
+  isJoined: boolean;
+  postsCount: number;
+  tags: string[];
+  rules: string[];
+  recentDiscussion?: string;
+}
+
+export interface ProductItem {
+  id: string;
+  name: string;
+  price: string;
+  imageUrl: string;
+  description: string;
+  inStock: boolean;
+}
+
+export interface BusinessPage {
+  id: string;
+  name: string;
+  category: string;
+  logoUrl: string;
+  bannerUrl: string;
+  description: string;
+  location: string;
+  rating: number;
+  reviewsCount: number;
+  verified: boolean;
+  followersCount: number;
+  isFollowing: boolean;
+  products: ProductItem[];
+  whatsappContact?: string;
+}
+
+export interface CommunityEvent {
+  id: string;
+  title: string;
+  organizer: string;
+  date: string;
+  time: string;
+  location: string;
+  attendeesCount: number;
+  isAttending: boolean;
+  imageUrl: string;
+  category: string;
+}
+

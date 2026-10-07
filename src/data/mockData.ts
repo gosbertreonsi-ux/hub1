@@ -339,3 +339,316 @@ export const TRANSLATION_MAP: Record<string, Record<string, string>> = {
   'asante': { English: 'thank you', French: 'merci' },
   'karibu': { English: 'welcome', French: 'bienvenue' },
 };
+
+/* =========================================================================
+   MIZIZI V2.0 MOCK DATA: STORIES, POSTS, REELS, COMMUNITIES, BUSINESSES
+   ========================================================================= */
+
+import { Post, Story, Reel, CommunityGroup, BusinessPage, CommunityEvent } from '../types';
+
+export const MOCK_STORIES: Story[] = [
+  {
+    id: 's-amani',
+    author: MOCK_DISCOVERY_USERS[0], // Amani
+    mediaUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    type: 'image',
+    caption: 'Sunset at Kendwa beach, Zanzibar 🌅✨ Coding with ocean breeze',
+    createdAt: '2h ago',
+  },
+  {
+    id: 's-zuri',
+    author: MOCK_DISCOVERY_USERS[1], // Zuri
+    mediaUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80',
+    type: 'image',
+    caption: 'Pitch day at Nairobi Innovation Hub! 🚀 Big announcement coming',
+    createdAt: '4h ago',
+  },
+  {
+    id: 's-chidi',
+    author: MOCK_DISCOVERY_USERS[2], // Chidi
+    mediaUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+    type: 'image',
+    caption: 'Studio session: Mixing acoustic drums and deep bass lines 🎧',
+    createdAt: '6h ago',
+  },
+  {
+    id: 's-elena',
+    author: MOCK_DISCOVERY_USERS[3], // Elena
+    mediaUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80',
+    type: 'image',
+    caption: 'Paris morning coffee & learning 20 new Swahili verbs ☕📖',
+    createdAt: '8h ago',
+  },
+  {
+    id: 's-layla',
+    author: MOCK_DISCOVERY_USERS[5], // Layla
+    mediaUrl: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
+    type: 'image',
+    caption: 'Desert stargazing & telescope setup in Siwa Oasis 🌌🔭',
+    createdAt: '11h ago',
+  },
+];
+
+export const MOCK_POSTS: Post[] = [
+  {
+    id: 'post-1',
+    author: MOCK_DISCOVERY_USERS[0], // Amani
+    content: 'Just launched our open-source Swahili design system for African creators! 🎨🚀 Believing in tools crafted by us, for us. Drop your thoughts below!',
+    mediaUrls: [
+      'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=80'
+    ],
+    mediaType: 'image',
+    likesCount: 342,
+    isLiked: false,
+    commentsCount: 28,
+    sharesCount: 15,
+    createdAt: '3 hours ago',
+    tags: ['Design', 'TechInAfrica', 'OpenSource', 'Zanzibar'],
+    location: 'Zanzibar, Tanzania',
+    communityName: 'Mizizi Tech & Designers',
+    comments: [
+      {
+        id: 'c1',
+        author: MOCK_DISCOVERY_USERS[1],
+        content: 'Huge milestone Amani! Loving the typography hierarchy and color contrast 👏',
+        createdAt: '2h ago',
+        likesCount: 12,
+      },
+      {
+        id: 'c2',
+        author: MOCK_DISCOVERY_USERS[2],
+        content: 'Can we integrate audio waveform components? Need this for music drops!',
+        createdAt: '1h ago',
+        likesCount: 5,
+      }
+    ]
+  },
+  {
+    id: 'post-2',
+    author: MOCK_DISCOVERY_USERS[1], // Zuri
+    content: 'Connecting with people based on shared values hits differently than random scrolling. Yesterday matched with Baraka on Mizizi and had an inspiring 1-hour discussion on fintech rails across East Africa 🌍🤝',
+    mediaUrls: [
+      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80'
+    ],
+    mediaType: 'image',
+    likesCount: 512,
+    isLiked: true,
+    commentsCount: 44,
+    sharesCount: 39,
+    createdAt: '6 hours ago',
+    tags: ['MiziziConnect', 'Networking', 'EastAfrica', 'Fintech'],
+    location: 'Nairobi, Kenya',
+  },
+  {
+    id: 'post-3',
+    author: MOCK_DISCOVERY_USERS[2], // Chidi
+    content: 'Live sound check in Lagos tonight! Combining Afro-percussion with ambient synthesizers. Streaming live snippet on Mizizi Reels in 10 mins 🥁✨',
+    mediaUrls: [
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80'
+    ],
+    mediaType: 'image',
+    likesCount: 890,
+    isLiked: false,
+    commentsCount: 67,
+    sharesCount: 82,
+    createdAt: '12 hours ago',
+    tags: ['Music', 'Afrobeats', 'LiveMusic', 'Lagos'],
+    location: 'Victoria Island, Lagos',
+    communityName: 'Afro Beats & Producers Hub',
+  },
+];
+
+export const MOCK_REELS: Reel[] = [
+  {
+    id: 'reel-1',
+    creator: MOCK_DISCOVERY_USERS[0],
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
+    caption: 'Morning in Stone Town: Coffee, ocean breeze, and building Mizizi interfaces 🌊☕ #ZanzibarLife #Design',
+    musicTitle: 'Bongo Flava Chill Beats · Amani Audio',
+    likesCount: 4210,
+    isLiked: false,
+    commentsCount: 184,
+    sharesCount: 512,
+    viewsCount: 38200,
+    tags: ['Zanzibar', 'Travel', 'Tech'],
+  },
+  {
+    id: 'reel-2',
+    creator: MOCK_DISCOVERY_USERS[2],
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
+    caption: 'How we record live talking drums for cinematic scores in Lagos 🥁🔥 Turn up the volume!',
+    musicTitle: 'Lagos Night Pulse · Chidi Studio Master',
+    likesCount: 8940,
+    isLiked: true,
+    commentsCount: 492,
+    sharesCount: 1205,
+    viewsCount: 94100,
+    tags: ['Music', 'Drums', 'Afrobeats'],
+  },
+  {
+    id: 'reel-3',
+    creator: MOCK_DISCOVERY_USERS[1],
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80',
+    caption: 'Top 3 mistakes first-time African tech founders make when pitching investors 💡📈 #StartupTips',
+    musicTitle: 'Founders Focus · Nairobi Beats',
+    likesCount: 3120,
+    isLiked: false,
+    commentsCount: 145,
+    sharesCount: 410,
+    viewsCount: 29400,
+    tags: ['Startup', 'Business', 'Kenya'],
+  },
+];
+
+export const MOCK_COMMUNITIES: CommunityGroup[] = [
+  {
+    id: 'comm-1',
+    name: 'Dar es Salaam Developers & Techies',
+    category: 'Technology & STEM',
+    avatarUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+    description: 'Community for coders, designers, AI practitioners and tech founders in Tanzania. Weekly code jams, mentorship, and career discussions.',
+    membersCount: 4890,
+    isJoined: true,
+    postsCount: 314,
+    tags: ['Software', 'React', 'TypeScript', 'AI', 'Startups'],
+    rules: [
+      'Be respectful and constructive',
+      'Share knowledge, no spam or unsolicited ads',
+      'English and Swahili both welcome'
+    ],
+    recentDiscussion: 'Baraka shared: "Best practices for WebRTC low latency calls across 4G networks"'
+  },
+  {
+    id: 'comm-2',
+    name: 'Afro Beats & Producers Collective',
+    category: 'Creative & Music',
+    avatarUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+    description: 'A global collective connecting beatmakers, vocalists, audio engineers and songwriters exploring contemporary and acoustic African sounds.',
+    membersCount: 8210,
+    isJoined: false,
+    postsCount: 620,
+    tags: ['Production', 'Afrobeats', 'SoundDesign', 'Collaboration'],
+    rules: ['Feedback must be actionable', 'Respect copyright and credit artists'],
+  },
+  {
+    id: 'comm-3',
+    name: 'East Africa Startup Founders Network',
+    category: 'Business & Entrepreneurship',
+    avatarUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=400&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+    description: 'Peer-to-peer circle for founders raising pre-seed to Series A across Kenya, Tanzania, Rwanda, and Uganda.',
+    membersCount: 2450,
+    isJoined: true,
+    postsCount: 198,
+    tags: ['Ventures', 'Fundraising', 'Growth', 'Fintech'],
+    rules: ['No self-promotion without value', 'Chatham House Rule on internal metrics'],
+  },
+  {
+    id: 'comm-4',
+    name: 'Swahili & Global Language Exchange',
+    category: 'Culture & Education',
+    avatarUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=400&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80',
+    description: 'Practice Kiswahili, French, English, Spanish and Arabic with native speakers via text and audio calls!',
+    membersCount: 6730,
+    isJoined: false,
+    postsCount: 450,
+    tags: ['Swahili', 'Languages', 'Culture', 'Exchange'],
+    rules: ['Be patient with language learners', 'Encourage practice without judgment'],
+  }
+];
+
+export const MOCK_BUSINESS_PAGES: BusinessPage[] = [
+  {
+    id: 'biz-1',
+    name: 'Swahili Tech Labs',
+    category: 'Software & Cloud Services',
+    logoUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+    description: 'Engineering resilient digital products and cloud architecture for hyper-growth startups across Africa.',
+    location: 'Masaki, Dar es Salaam, Tanzania',
+    rating: 4.9,
+    reviewsCount: 88,
+    verified: true,
+    followersCount: 14200,
+    isFollowing: true,
+    whatsappContact: '+255712345678',
+    products: [
+      {
+        id: 'p1',
+        name: 'Full-Stack MVP Sprint (3 Weeks)',
+        price: 'TZS 4,500,000',
+        imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80',
+        description: 'From wireframes to production deployment on AWS/Cloud Run with automated testing.',
+        inStock: true,
+      },
+      {
+        id: 'p2',
+        name: 'WebRTC Audio/Video Architecture Audit',
+        price: 'TZS 1,200,000',
+        imageUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80',
+        description: 'Complete latency optimization and signaling server hardening.',
+        inStock: true,
+      }
+    ]
+  },
+  {
+    id: 'biz-2',
+    name: 'Zanzibar Spice & Soul Artisan',
+    category: 'E-Commerce & Culture',
+    logoUrl: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&w=400&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    description: 'Certified organic organic cloves, cardamom, vanilla, and handcrafted skin oils sourced directly from Pemba & Unguja smallholders.',
+    location: 'Stone Town, Zanzibar',
+    rating: 4.8,
+    reviewsCount: 134,
+    verified: true,
+    followersCount: 9800,
+    isFollowing: false,
+    whatsappContact: '+255789123456',
+    products: [
+      {
+        id: 'p3',
+        name: 'Signature Zanzibar Spice Box (12 Spices)',
+        price: 'TZS 65,000',
+        imageUrl: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=400&q=80',
+        description: 'Fresh harvest vacuum-sealed spices packaged in handcrafted wooden box.',
+        inStock: true,
+      }
+    ]
+  }
+];
+
+export const MOCK_EVENTS: CommunityEvent[] = [
+  {
+    id: 'ev-1',
+    title: 'East Africa Tech & AI Summit 2026',
+    organizer: 'Dar es Salaam Developers',
+    date: 'Oct 24, 2026',
+    time: '09:00 AM EAT',
+    location: 'JNICC, Dar es Salaam & Live on Mizizi Stream',
+    attendeesCount: 740,
+    isAttending: true,
+    imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
+    category: 'Technology',
+  },
+  {
+    id: 'ev-2',
+    title: 'Afro-Fusion Acoustic Rooftop Sessions',
+    organizer: 'Afro Beats Collective',
+    date: 'Nov 02, 2026',
+    time: '07:30 PM EAT',
+    location: 'Masaki Rooftop Lounge, Dar es Salaam',
+    attendeesCount: 280,
+    isAttending: false,
+    imageUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+    category: 'Music',
+  }
+];
+

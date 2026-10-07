@@ -29,6 +29,7 @@ interface UserProfileModalProps {
   onStartVideoCall: (profile: UserProfile) => void;
   onReportUser: (profile: UserProfile) => void;
   onBlockUser: (profile: UserProfile) => void;
+  onRequireSubscription?: (message?: string) => void;
 }
 
 export const UserProfileModal: React.FC<UserProfileModalProps> = ({
@@ -42,6 +43,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   onStartVideoCall,
   onReportUser,
   onBlockUser,
+  onRequireSubscription,
 }) => {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   const [isPlayingVoice, setIsPlayingVoice] = useState(false);
@@ -245,6 +247,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           {isLiked ? (
             <button
               onClick={() => {
+                if (!currentUser.isSubscribed) {
+                  if (onRequireSubscription) {
+                    onRequireSubscription(`Free Preview Mode: Subscribe to VIP to start 1-to-1 chats with ${profile.nickname}!`);
+                    return;
+                  }
+                }
                 onOpenChat(profile.id);
                 onClose();
               }}
@@ -256,6 +264,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           ) : (
             <button
               onClick={() => {
+                if (!currentUser.isSubscribed) {
+                  if (onRequireSubscription) {
+                    onRequireSubscription(`Free Preview Mode: You found a ${compatibilityScore}% match with ${profile.nickname}! Subscribe to VIP to like & connect.`);
+                    return;
+                  }
+                }
                 onLike(profile, compatibilityScore);
                 onClose();
               }}
@@ -269,6 +283,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => {
+                if (!currentUser.isSubscribed) {
+                  if (onRequireSubscription) {
+                    onRequireSubscription(`Voice calls with ${profile.nickname} require a MIZIZI VIP subscription.`);
+                    return;
+                  }
+                }
                 onStartVoiceCall(profile);
                 onClose();
               }}
@@ -279,6 +299,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </button>
             <button
               onClick={() => {
+                if (!currentUser.isSubscribed) {
+                  if (onRequireSubscription) {
+                    onRequireSubscription(`HD WebRTC Video calls with ${profile.nickname} require a MIZIZI VIP subscription.`);
+                    return;
+                  }
+                }
                 onStartVideoCall(profile);
                 onClose();
               }}
