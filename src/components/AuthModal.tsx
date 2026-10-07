@@ -184,7 +184,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-900 border border-red-500/50 flex items-center justify-center mx-auto shadow-lg shadow-red-950/60">
             <Flame className="w-5 h-5 text-white fill-white" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white font-serif">
+          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white font-sans">
             mizizi<span className="text-red-500 font-sans text-sm">·2.0</span>
           </h2>
           <p className="text-xs text-zinc-400">

@@ -64,7 +64,7 @@ export const MatchCelebrationModal: React.FC<MatchCelebrationModalProps> = ({
           <span>MUTUAL CONNECTION!</span>
         </div>
 
-        <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white font-serif">
+        <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white font-sans">
           IT'S A <span className="text-red-500">MATCH!</span>
         </h2>
         <p className="text-xs text-zinc-300 mt-1">

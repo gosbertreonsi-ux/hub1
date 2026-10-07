@@ -73,30 +73,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         <div className="max-w-7xl mx-auto px-3 sm:px-6 h-15 sm:h-16 flex items-center justify-between gap-2">
           
-          {/* LEFT SIDE: Menu Bar Trigger + Minimized Mizizi Brand Logo */}
+          {/* LEFT SIDE: Beautiful Sans-Serif Brand Logo */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Dedicated Left Menu Button for Phone & Tablet */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-red-950 hover:border-red-600/70 cursor-pointer active:scale-95 transition-all shadow-sm"
-              title="Open Navigation Menu"
-            >
-              <Menu className="w-4.5 h-4.5 text-red-500 flex-shrink-0" />
-              <span className="text-xs font-bold tracking-tight">Menu</span>
-            </button>
-
-            {/* Minimized Mizizi Brand Logo - sleek & compact */}
             <button 
               onClick={() => handleTabSelect('feed')} 
-              className="flex items-center gap-1.5 text-left group cursor-pointer focus:outline-none"
+              className="flex items-center gap-2 text-left group cursor-pointer focus:outline-none"
               title="Mizizi"
             >
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-red-600 to-rose-950 flex items-center justify-center shadow-md shadow-red-950/60 border border-red-500/40 group-hover:scale-105 transition-transform flex-shrink-0">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-red-600 via-rose-600 to-rose-950 flex items-center justify-center shadow-md shadow-red-950/60 border border-red-500/40 group-hover:scale-105 transition-transform flex-shrink-0">
                 <Flame className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white fill-white" />
               </div>
               <div className="leading-none">
-                <span className="font-extrabold tracking-tight text-sm sm:text-base text-white font-serif">
-                  mizizi<span className="text-red-500 text-xs font-sans">·2.0</span>
+                <span className="font-black tracking-tight text-base sm:text-lg text-white font-sans">
+                  mizizi<span className="text-red-500 text-xs font-bold font-sans">·2.0</span>
                 </span>
               </div>
             </button>
@@ -211,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* VIP Pass Button */}
             <button
               onClick={onOpenSubscription}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all active:scale-95 border ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all active:scale-95 border ${
                 currentUser.isSubscribed
                   ? 'bg-amber-950/80 text-amber-300 border-amber-600 shadow-md shadow-amber-950'
                   : 'bg-gradient-to-r from-red-600 to-amber-600 text-white border-amber-400/50 shadow-md shadow-red-950'
@@ -222,15 +211,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="hidden sm:inline">
                 {currentUser.isSubscribed ? 'VIP Active' : 'Subscribe VIP'}
               </span>
-            </button>
-
-            {/* Settings button on right */}
-            <button
-              onClick={onOpenPrivacy}
-              className="p-2 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-red-950/80 cursor-pointer transition-colors"
-              title="Privacy & Safety Settings"
-            >
-              <Settings className="w-4 h-4 text-red-400" />
             </button>
 
             {/* User Profile Avatar on Right */}
@@ -291,7 +271,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Flame className="w-4 h-4 text-white fill-white" />
                   </div>
                   <div>
-                    <span className="font-extrabold text-sm text-white font-serif">mizizi<span className="text-red-500 font-sans text-xs">·2.0</span></span>
+                    <span className="font-black text-sm text-white font-sans tracking-tight">mizizi<span className="text-red-500 font-bold text-xs">·2.0</span></span>
                     <span className="text-[10px] text-zinc-400 block -mt-0.5">Social · Discovery · Messaging</span>
                   </div>
                 </div>
@@ -411,6 +391,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   <ShieldAlert className="w-4 h-4 text-red-400" />
                   <span>Trust, Safety & Admin</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenPrivacy();
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-zinc-300 hover:bg-zinc-900 cursor-pointer"
+                >
+                  <Settings className="w-4 h-4 text-red-400" />
+                  <span>Privacy & Safety Settings</span>
                 </button>
               </div>
             </div>
